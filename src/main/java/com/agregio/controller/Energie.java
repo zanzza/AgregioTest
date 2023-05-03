@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agregio.entity.Blocs;
 import com.agregio.service.EnergieService;
 
 @RestController
@@ -14,7 +15,7 @@ public class Energie {
 	
 	@GetMapping("/")
 	public String index() {
-		return energieService.makeOffer();
+		return energieService.makeOffer(Blocs.BLOC_1.name(), 23);
 	}
 
 }

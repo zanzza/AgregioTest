@@ -12,10 +12,10 @@ public class EnergieService {
 	@Autowired
 	OffreRepository offreRepository;
 	
-	public String makeOffer ( ) {
+	public String makeOffer ( String bloc, int megawat ) {
 		Offre offre = new Offre();
-		offre.setBlocs(Blocs.BLOC_1);
-		offre.setMegawat(23);
+		offre.setBlocs(Blocs.valueOf(bloc));
+		offre.setMegawat(megawat);
 		Long id = offreRepository.save(offre).getId();
 		return offreRepository.findById(id).get().toString();
 	}
