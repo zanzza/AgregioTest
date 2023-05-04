@@ -6,6 +6,8 @@ import com.agregio.entity.Parc;
 import com.agregio.entity.Type;
 import com.agregio.repository.OffreRepository;
 import com.agregio.repository.ParcRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Service
 public class ParcService {
-
+    private static final Logger LOGGER = LogManager.getLogger(ParcService.class);
     @Autowired
     ParcRepository repository;
 
@@ -31,6 +33,8 @@ public class ParcService {
                 }
                 parc.setMegawatt(megawatt);
                 repository.save(parc);
+
+                LOGGER.info("Parc bien enregistré");
             }
 
     }
@@ -49,6 +53,8 @@ public class ParcService {
 
                 offre.getParcs().add(parc);
                 offreRepository.save(offre);
+
+                logger.info("Parc bien associé a une offre");
             }
         }
     }

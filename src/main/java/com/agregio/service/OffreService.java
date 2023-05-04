@@ -2,11 +2,11 @@ package com.agregio.service;
 
 import com.agregio.entity.Blocs;
 import com.agregio.entity.Marche;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.agregio.entity.Offre;
 import com.agregio.repository.OffreRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.Set;
 
 @Service
 public class OffreService {
+	private static final Logger LOGGER = LogManager.getLogger(OffreService.class);
 	public OffreService(OffreRepository offreRepository) {
 		this.offreRepository = offreRepository;
 	}
@@ -31,6 +32,7 @@ public class OffreService {
 			}
 			offre.setPrix(prix);
 			offreRepository.save(offre);
+			LOGGER.info("Offre bien enregistré");
 		}
 	}
 
@@ -56,12 +58,14 @@ public class OffreService {
 			} else {
 				Set<Blocs> offreBloc = offre.getBloc();
 				if (offreBloc != null) {
-					blocs .addAll(offreBloc);
+					blocs.addAll(offreBloc);
 				}
 			}
 			blocs.add(blocOffre);
 			offre.setBloc(blocs);
 			offreRepository.save(offre);
+
+			LOGGER.info("Offre bien enregistré");
 		}
 
 	}
