@@ -8,5 +8,9 @@ public enum Blocs {
 	BLOC_5,
 	BLOC_6,
 	BLOC_7,
-	BLOC_8
+	BLOC_8;
+
+	public static Blocs getValue(String bloc) {
+		return valueOf(bloc);
+	}
 }

@@ -1,68 +1,43 @@
 package com.agregio.entity;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Offre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	private String name;
 	
-	private Blocs blocs;
+	private Set<Blocs> bloc;
 	
-	private Reserve reserve;
-	
-	private Type type;
-	
-	private String fournisseur;
-	
-	private int megawat;
+	private Marche marche;
 
-	public Blocs getBlocs() {
-		return blocs;
+	private int prix;
+
+	@OneToMany
+	private List<Parc> parcs = new ArrayList<>();
+
+	public List<Parc> getParcs() {
+		return parcs;
 	}
 
-	public void setBlocs(Blocs blocs) {
-		this.blocs = blocs;
+	public void setParcs(List<Parc> parcs) {
+		this.parcs = parcs;
 	}
 
-	public Reserve getReserve() {
-		return reserve;
+	public int getPrix() {
+		return prix;
 	}
 
-	public void setReserve(Reserve reserve) {
-		this.reserve = reserve;
+	public Offre() {
+		super();
 	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
-	}
-
-	public String getFournisseur() {
-		return fournisseur;
-	}
-
-	public void setFournisseur(String fournisseur) {
-		this.fournisseur = fournisseur;
-	}
-
-	public int getMegawat() {
-		return megawat;
-	}
-
-	public void setMegawat(int megawat) {
-		this.megawat = megawat;
-	}
-	
 
 	public Long getId() {
 		return id;
@@ -72,44 +47,31 @@ public class Offre {
 		this.id = id;
 	}
 
-	public Offre() {
-		super();
+	public String getName() {
+		return name;
 	}
 
-	public Offre(long id, Blocs blocs, Reserve reserve, Type type, String fournisseur, int megawat) {
-		super();
-		this.id = id;
-		this.blocs = blocs;
-		this.reserve = reserve;
-		this.type = type;
-		this.fournisseur = fournisseur;
-		this.megawat = megawat;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(blocs, fournisseur, id, megawat, reserve, type);
+	public Set<Blocs> getBloc() {
+		return bloc;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Offre other = (Offre) obj;
-		return blocs == other.blocs && Objects.equals(fournisseur, other.fournisseur) && id == other.id
-				&& megawat == other.megawat && reserve == other.reserve && type == other.type;
+	public void setBloc(Set<Blocs> bloc) {
+		this.bloc = bloc;
 	}
 
-	@Override
-	public String toString() {
-		return "Offre [id=" + id + ", blocs=" + blocs + ", reserve=" + reserve + ", type=" + type + ", fournisseur="
-				+ fournisseur + ", megawat=" + megawat + "]";
+	public Marche getMarche() {
+		return marche;
 	}
-	
-	
 
+	public void setMarche(Marche marche) {
+		this.marche = marche;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
 }
