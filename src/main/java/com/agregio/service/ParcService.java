@@ -54,7 +54,7 @@ public class ParcService {
                 offre.getParcs().add(parc);
                 offreRepository.save(offre);
 
-                logger.info("Parc bien associé a une offre");
+                LOGGER.info("Parc bien associé a une offre");
             }
         }
     }
