@@ -1,6 +1,11 @@
 package com.agregio.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.util.Objects;
 
 @Entity
 public class Parc {
@@ -45,6 +50,19 @@ public class Parc {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Parc parc = (Parc) o;
+        return megawatt == parc.megawatt && Objects.equals(id, parc.id) && Objects.equals(name, parc.name) && type == parc.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, megawatt, type);
     }
 
     @Override

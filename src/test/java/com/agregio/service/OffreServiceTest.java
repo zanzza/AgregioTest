@@ -7,8 +7,6 @@ import com.agregio.repository.OffreRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -48,6 +46,19 @@ class OffreServiceTest {
     }
 
     @Test
+    void createOfferWhoNotExist() {
+        Offre offre = new Offre();
+        offre.setName("TEST_NAME");
+        offre.setPrix(12);
+        offre.setMarche(Marche.PRIMAIRE);
+        when(repository.findOneByNameAndMarche(eq("TEST_NAME"), eq(Marche.PRIMAIRE))).thenReturn(null);
+
+        offreService.createOffer("TEST_NAME", "PRIMAIRE", 12);
+
+        Mockito.verify(repository, Mockito.times(1)).save(offre);
+    }
+
+    @Test
     void getAllOfferFromName() {
         when(repository.findAllByName(eq("TEST_NAME"))).thenReturn(new ArrayList<>());
 
@@ -72,6 +83,19 @@ class OffreServiceTest {
         offre.setBloc(Collections.singleton(Blocs.BLOC_1));
         offre.setMarche(Marche.PRIMAIRE);
         when(repository.findOneByNameAndMarche(eq("TEST_NAME"), eq(Marche.PRIMAIRE))).thenReturn(offre);
+
+        offreService.addBlocOffer("TEST_NAME", "PRIMAIRE", "BLOC_1");
+
+        Mockito.verify(repository, Mockito.times(1)).save(offre);
+    }
+
+    @Test
+    void addBlocOfferWhoNotExist() {
+        Offre offre = new Offre();
+        offre.setName("TEST_NAME");
+        offre.setBloc(Collections.singleton(Blocs.BLOC_1));
+        offre.setMarche(Marche.PRIMAIRE);
+        when(repository.findOneByNameAndMarche(eq("TEST_NAME"), eq(Marche.PRIMAIRE))).thenReturn(null);
 
         offreService.addBlocOffer("TEST_NAME", "PRIMAIRE", "BLOC_1");
 

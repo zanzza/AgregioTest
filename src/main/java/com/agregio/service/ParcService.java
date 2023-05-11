@@ -16,21 +16,25 @@ import java.util.List;
 @Service
 public class ParcService {
     private static final Logger LOGGER = LogManager.getLogger(ParcService.class);
-    @Autowired
     ParcRepository repository;
 
-    @Autowired
     OffreRepository offreRepository;
 
+    @Autowired
+    public ParcService(ParcRepository repository, OffreRepository offreRepository) {
+        this.repository = repository;
+        this.offreRepository = offreRepository;
+    }
+
     public void createParc(String name, String type, int megawatt) {
-            Type typeEnergy = Type.getValue(type);
-            if (typeEnergy != null) {
-                Parc parc = repository.findOneByNameAndType(name, typeEnergy);
-                if (parc == null) {
-                    parc = new Parc();
-                    parc.setName(name);
-                    parc.setType(typeEnergy);
-                }
+        Type typeEnergy = Type.getValue(type);
+        if (typeEnergy != null) {
+            Parc parc = repository.findOneByNameAndType(name, typeEnergy);
+            if (parc == null) {
+                parc = new Parc();
+                parc.setName(name);
+                parc.setType(typeEnergy);
+            }
                 parc.setMegawatt(megawatt);
                 repository.save(parc);
 

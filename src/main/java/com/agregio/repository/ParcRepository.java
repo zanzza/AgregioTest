@@ -1,6 +1,5 @@
 package com.agregio.repository;
 
-import com.agregio.entity.Offre;
 import com.agregio.entity.Parc;
 import com.agregio.entity.Type;
 import org.springframework.data.repository.CrudRepository;
@@ -14,4 +13,6 @@ public interface ParcRepository extends CrudRepository<Parc, Long> {
     Parc findOneByNameAndType(String name, Type type);
 
     List<Parc> findAllByName(String name);
+
+    List<Parc> findAll();
 }
